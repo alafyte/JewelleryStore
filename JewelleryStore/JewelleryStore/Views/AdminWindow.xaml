@@ -1,0 +1,121 @@
+﻿<Window x:Class="JewelleryStore.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JewelleryStore"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Title="Admin" Cursor="{Binding Cursor}" Width="1200" Height="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/Styles.xaml"/>
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource MaterialDesignPaper}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="287*"/>
+            <ColumnDefinition Width="663*"/>
+            <ColumnDefinition Width="250*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="68*"/>
+            <RowDefinition Height="71*"/>
+            <RowDefinition Height="213*"/>
+            <RowDefinition Height="140*" />
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
+
+        <!-- side navbar -->
+        <Rectangle Grid.Column="0" Grid.RowSpan="6" Opacity="0.3" Fill="{DynamicResource PrimaryHueLightBrush}"                  
+                   materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                   materialDesign:ShadowAssist.ShadowEdges="Right"/>
+
+
+        <Button x:Name="ProductsBtn" Grid.Row="3"
+                Command="{Binding ShowProductsCommand}"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                Content="{DynamicResource Products}"
+                IsDefault="True"
+                Foreground="{DynamicResource PrimaryHueMidBrush}"
+                VerticalAlignment="Top"
+               Cursor="{Binding Cursor}"
+                Height="50" Margin="0,29,0,0" />
+        <Button x:Name="StatBtn" Grid.Row="3"
+               Command="{Binding ShowStatisticsCommand}"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                Content="{DynamicResource Statistics}"
+                Foreground="{DynamicResource PrimaryHueMidBrush}"
+                VerticalAlignment="Top"
+               Cursor="{Binding Cursor}"
+                Height="50" Margin="0,83,0,0" RenderTransformOrigin="0.5,-0.736" />
+
+        <StackPanel Grid.Row="0"
+              Grid.Column="1" HorizontalAlignment="Left"
+              Orientation="Horizontal"
+              Width="273" Margin="365,0,0,0">
+            <RadioButton
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"          
+                Tag="Theme1"
+                Command="{Binding SwitchThemeCommand}"
+                CommandParameter="{Binding Tag, RelativeSource={RelativeSource Self}}"
+                Content="{DynamicResource Blue}" Cursor="{Binding Cursor}" />
+            <RadioButton 
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"
+                Tag="Theme2"  IsChecked="False"
+                Command="{Binding SwitchThemeCommand}"
+                CommandParameter="{Binding Tag, RelativeSource={RelativeSource Self}}"
+                Content="{DynamicResource Red}" Cursor="{Binding Cursor}" />
+            <RadioButton 
+                Cursor="{Binding Cursor}"
+                Style="{StaticResource MaterialDesignTabRadioButton}"
+                Margin="4"
+                Command="{Binding SwitchThemeCommand}"
+                CommandParameter="{Binding Tag, RelativeSource={RelativeSource Self}}"
+                IsChecked="False" Tag="Theme3"                
+                Content="{DynamicResource Brown}" />
+        </StackPanel>
+
+        <!-- log out button -->
+
+        <!-- logo -->
+        <Image Source="/images/logotype.png" Grid.Column="0" Margin ="10,13,20,21"  Grid.ColumnSpan="1" RenderTransformOrigin="0.507,0.544"/>
+
+
+        <!-- content -->
+        <Frame Background="{DynamicResource MaterialDesignPaper}" x:Name="myFrame" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Source="{Binding Page}">
+
+        </Frame>
+
+        <!-- user -->
+        <materialDesign:Chip Grid.Column="2" 
+            Content="Admin" Cursor="{Binding Cursor}"
+            Icon="A" Margin="34,12,0,20" Width="116" />
+
+        <!-- toggle languages -->
+        <ToggleButton Grid.Column="2"
+                Style="{StaticResource MaterialDesignActionToggleButton}"
+                Content="RU"   FontSize="11" 
+                HorizontalContentAlignment="Center"
+                Cursor="{Binding Cursor}"
+                IsChecked="{Binding LangCheck}"
+                Command="{Binding SwitchLangCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                materialDesign:ToggleButtonAssist.OnContent="EN" Canvas.Left="291" Canvas.Top="321" Height="32" Width="32" 
+                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                Margin="0,0,22,22" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <Button Command="{Binding CloseCommand}" Cursor="{Binding Cursor}"
+                Grid.Row="4" VerticalAlignment="Top" 
+                Style="{StaticResource MaterialDesignIconButton}"
+                Margin="0,120,0,0" Width="48" RenderTransformOrigin="0.493,0.5" HorizontalAlignment="Center" Height="48">
+            <materialDesign:PackIcon
+                     Kind="Logout" />
+        </Button>
+
+    </Grid>
+</Window>

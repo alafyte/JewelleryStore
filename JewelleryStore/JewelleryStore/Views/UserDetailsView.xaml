@@ -1,0 +1,90 @@
+﻿<Page x:Class="JewelleryStore.UserDetailsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JewelleryStore" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      
+      d:DesignHeight="695" d:DesignWidth="687"
+      Title="UserDetailsPage">
+
+    <Grid Background="{StaticResource MaterialDesignPaper}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="344*"></ColumnDefinition>
+            <ColumnDefinition Width="343*"></ColumnDefinition>
+            <ColumnDefinition Width="343*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="451.299"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="18,10,0,0" FontSize="15" FontWeight="DemiBold" Text="{DynamicResource Name}" VerticalAlignment="Top" Height="26" Width="70" Grid.Column="0"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="18,10,0,0" FontSize="15" FontWeight="DemiBold" Text="{DynamicResource Lastname}" VerticalAlignment="Top" Height="27" Width="83" Grid.Column="1"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Margin="18,10,0,0" FontSize="15" FontWeight="DemiBold" Text="{DynamicResource Username}" VerticalAlignment="Top" Height="27" Width="97" Grid.Column="0"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Margin="18,10,0,0" FontSize="15" FontWeight="DemiBold" Text="{DynamicResource E-mail}" VerticalAlignment="Top" Height="27" Width="69" Grid.Column="1"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="18,10,0,0" FontSize="15" FontWeight="DemiBold" Text="{DynamicResource DateBirth}" VerticalAlignment="Top" Height="27" Width="141" Grid.Column="2"/>
+
+        <TextBlock HorizontalAlignment="Center" FontSize="14" Text="{Binding Name}" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Height="26" Width="193" Margin="0,47,0,0"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="14" Text="{Binding LastName}" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Height="26" Width="192" Margin="0,45,0,0"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="14" Text="{Binding Login}" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1" Height="26" Width="193" Margin="0,47,0,0"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="14" Text="{Binding Email}" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="26" Width="192" Margin="0,47,0,0"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="14" Text="{Binding DateBirth}" VerticalAlignment="Top" Grid.Column="2" Grid.Row="0" Height="26" Width="193" Margin="0,47,0,0"/>
+        <Button Content="{DynamicResource EditAccount}" Command="{Binding EditCommand}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Style="{DynamicResource MaterialDesignFlatLightButton}" Grid.Row="2" VerticalAlignment="Top" Height="34" Width="219" Margin="0,7,0,0" Grid.Column="1"/>
+
+        <Separator Background="Black" Grid.ColumnSpan="3" Grid.Row="2" Margin="0,46,0,448" Grid.RowSpan="2" Opacity="0.1"/>
+        <Label Grid.Row="2" HorizontalAlignment="Center" FontSize="17" FontWeight="DemiBold" Content="{DynamicResource YourOrders}" HorizontalContentAlignment="Center" VerticalAlignment="Top" Height="28" Width="131" Grid.Column="1" Margin="0,74,0,0" Grid.RowSpan="2"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" x:Name="YourOrders"  Grid.ColumnSpan="3" Grid.Row="3" Margin="0,31,0,0">
+            <ItemsControl ItemsSource="{Binding Bills, Mode=OneWay}" Width="670">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="0.5" CornerRadius="10" Margin="0, 0, 0, 10">
+                            <StackPanel Orientation="Vertical" Width="670" Margin="0, 0, 0, 20">
+                                <StackPanel Orientation="Horizontal" Width="670">
+                                    <TextBlock Text="{DynamicResource OrderNumber}" FontSize="17" Width="70" FontWeight="DemiBold" Margin="18,10,0,0"/>
+                                    <TextBlock Text="{Binding Bill.BillId}" FontSize="17" FontWeight="DemiBold" Width="60" Margin="5,10,0,0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Width="670">
+                                    <TextBlock Text="{DynamicResource DateOfOrder}" FontSize="15" FontWeight="DemiBold" Margin="18,10,0,0"/>
+                                    <TextBlock Text="{Binding Bill.DateOfOrder, StringFormat=dd/MM/yyyy HH:mm}" FontSize="15" FontWeight="DemiBold" Margin="5,10,0,0"/>
+                                </StackPanel>
+                                <TextBlock Text="{DynamicResource YourProducts}" FontSize="15" FontWeight="DemiBold" Margin="18,10,0,0"/>
+                                <ItemsControl ItemsSource="{Binding OrderInfos, Mode=OneWay}" Width="660" Margin="9,10,8,0">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.2" CornerRadius="3">
+                                                <Grid Width="650" Height="112">
+                                                    <Image Source="{Binding Pimage}" Width="100" Height="100" Margin="10,5,530,5"/>
+                                                    <TextBlock Text="{Binding Pname}" FontSize="15" Margin="128,12,35,77"/>
+                                                    <TextBlock Text="{Binding Price, StringFormat=${0}}" FontSize="15" Margin="132,59,467,33"/>
+                                                    <TextBlock Text="{Binding Quantity, StringFormat=x {0}}" FontSize="15" Margin="195,59,295,24"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel x:Name="info"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                                <StackPanel Orientation="Horizontal" Width="687">
+                                    <TextBlock Text="{DynamicResource Total}" FontSize="15" FontWeight="DemiBold" Margin="18, 15, 0, 0"></TextBlock>
+                                    <TextBlock Text="{Binding Bill.TotalPrice, StringFormat=${0}}" FontSize="15" FontWeight="DemiBold" Margin="10, 15, 0, 0"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel x:Name="orders"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,140 @@
+﻿<Window x:Class="JewelleryStore.ProductDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:JewelleryStore"
+        mc:Ignorable="d"
+        Title="ProductDialog"  Height="692" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" Cursor="{Binding Cursor}">
+    <Window.Resources>
+        <local:VisibilityConverter x:Key="BTVConverter"/>
+    </Window.Resources>
+    <Border BorderBrush="{DynamicResource PrimaryHueLightBrush}" BorderThickness="2">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400*"/>
+                <ColumnDefinition Width="400*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="122*"/>
+                <RowDefinition Height="122*"/>
+                <RowDefinition Height="82*"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="nameFieldRus" Grid.Row="1" Width="350" Height="40" TabIndex="1"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 materialDesign:HintAssist.Hint="{DynamicResource ProductNameRus}"
+                 Text="{Binding WordRus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,0,0" Grid.ColumnSpan="2"/>
+
+            <TextBox x:Name="priceField"  Grid.Row="2" Width="350" TabIndex="3"
+                    Height="40" 
+                    Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    materialDesign:HintAssist.Hint="{DynamicResource Price}"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,6,0,0"/>
+
+            <TextBox x:Name="quantityField"  Grid.Row="2" Width="350" TabIndex="4"
+                    Height="40" Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    materialDesign:HintAssist.Hint="{DynamicResource Quantity}"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,6,0,0" Grid.Column="1"/>
+
+            <ListBox Grid.Row="6" SelectedIndex="{Binding ProductType}"
+                    Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}"
+                x:Name="ProductType" Margin="38,23,38,70" Grid.Column="1">
+                <ListBoxItem x:Name="type1" TabIndex="12"
+                         Content="{DynamicResource Necklaces}" />
+                <ListBoxItem x:Name="type2" TabIndex="13"
+                        Content="{DynamicResource Rings}" />
+                <ListBoxItem x:Name="type3" TabIndex="14"
+                         Content="{DynamicResource Earrings }" />
+                <ListBoxItem  x:Name="type4" TabIndex="15"                    
+                         Content="{DynamicResource Wristwear}" />
+            </ListBox>
+
+
+            <Button Command="{Binding CloseCommand}"
+             Style="{StaticResource MaterialDesignFlatLightButton}"                 
+             Margin="332,5,0,15" Height="Auto" Grid.Column="1">
+                <materialDesign:PackIcon Kind="Close" />
+            </Button>
+
+            <Rectangle x:Name="image" Grid.Row="6" Width="100" Height="100" Margin="250,17,48,18" AllowDrop="True"
+             Fill="{Binding RectFillBrush}"
+             Stroke="{Binding RectStrokeBrush}" StrokeDashArray="3" Grid.Column="0">
+            </Rectangle>
+            <Button TabIndex="11" Command="{Binding AddImageCommand}"
+                  Style="{StaticResource MaterialDesignFlatLightButton}"
+                  Content="{DynamicResource AddImage}" Margin="44,51,183,52" Grid.Row="6" Grid.Column="0"
+                />
+
+
+            <Button x:Name="EditBtn" TabIndex="12" Command="{Binding EditCommand}"
+                    Visibility="{Binding EditButtonVisibility, Converter={StaticResource BTVConverter}}"
+          Style="{StaticResource MaterialDesignOutlinedLightButton}"            
+          Content="{DynamicResource Edit}" Margin="85,26,97,25" Grid.Row="8" Height="40" Grid.ColumnSpan="2"    
+         />
+
+            <Button x:Name="AddBtn" Visibility="{Binding AddButtonVisibility, Converter={StaticResource BTVConverter}}" TabIndex="12" Command="{Binding AddCommand}"
+          Style="{StaticResource MaterialDesignOutlinedLightButton}"            
+          Content="{DynamicResource Add}" Margin="85,26,97,25" Grid.Row="8" Height="40" Grid.ColumnSpan="2"    
+         />
+            <TextBox x:Name="nameFieldEn" Grid.Row="1" Width="350" Height="40" TabIndex="2"
+                Text="{Binding WordEn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                materialDesign:HintAssist.Hint="{DynamicResource ProductNameEn}"
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,2,0,0" Grid.Column="1"/>
+            <TextBox x:Name="descriptionFieldRus" Grid.Row="5" Width="348" Height="115" TextWrapping="Wrap" TabIndex="9"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding DescriptionRus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                materialDesign:HintAssist.Hint="{DynamicResource ProductDescriptionRus}"
+                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,0,0,0"/>
+            <TextBox x:Name="descriptionFieldEn" Grid.Row="5" Width="348" Height="115" TextWrapping="Wrap" TabIndex="10"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding DescriptionEn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                materialDesign:HintAssist.Hint="{DynamicResource ProductDescriptionEn}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+            <TextBox x:Name="weightField"  Grid.Row="3" Width="350" TabIndex="5"
+                Height="40" 
+                Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                materialDesign:HintAssist.Hint="{DynamicResource Weight}"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
+
+            <ComboBox x:Name="stoneInsert" Width="350" Height="40" TabIndex="6"  ItemsSource="{Binding Stones}"
+            SelectedItem="{Binding SelectedStone,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource Insert}" Grid.Column="1" Margin="24,5,24,0" Grid.Row="3" VerticalAlignment="Top"></ComboBox>
+            <ComboBox x:Name="metalBox" ItemsSource="{Binding Metals}"
+            SelectedItem="{Binding SelectedMetal,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="350" Height="40" TabIndex="7" Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource Metal}" Margin="20,0,28,0" Grid.Row="4"/>
+            <TextBox x:Name="metalSampleField"  Grid.Row="4" Width="350" TabIndex="8"
+                Height="40" 
+                Text="{Binding MetalSample, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                materialDesign:HintAssist.Hint="{DynamicResource MetalSample}"
+                HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="24,0,0,0"/>
+            <CheckBox FontWeight="Light" IsChecked="{Binding ProductActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="38,73,0,12" Width="184" Grid.Column="1" Grid.Row="6" IsEnabled="{Binding CheckboxAciveEnabled}">
+                <TextBlock FontSize="14" Text="{DynamicResource Active}" VerticalAlignment="Top" Margin="0,-3,0,0"/>
+            </CheckBox>
+            <Label Content="{DynamicResource ErrorProductPrice}" Visibility="{Binding ErrorPriceVisibility, Converter={StaticResource BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Margin="14,49,0,0" Grid.Row="2" VerticalAlignment="Top" Width="350" Grid.RowSpan="2"/>
+            <Label Content="{DynamicResource ErrorProductQuantity}" Visibility="{Binding ErrorQuantityVisibility, Converter={StaticResource ResourceKey=BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Grid.Row="2" VerticalAlignment="Center" Width="350" Grid.RowSpan="2" Grid.Column="1" Margin="22,0,0,0"/>
+            <Label Content="{DynamicResource ErrorProductWeight}" Visibility="{Binding ErrorWeightVisibility, Converter={StaticResource BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Margin="14,43,0,0" Grid.Row="3" VerticalAlignment="Top" Width="350" Grid.RowSpan="2"/>
+            <Label Content="{DynamicResource ErrorMetalSample}" Visibility="{Binding ErrorMetalSampleVisibility, Converter={StaticResource ResourceKey=BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Grid.Row="4" VerticalAlignment="Top" Width="350" Grid.Column="1" Margin="22,47,0,0" Grid.RowSpan="2"/>
+            <Label Content="{DynamicResource ErrorProductName}" Visibility="{Binding ErrorProductNameRusVisibility, Converter={StaticResource BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Margin="14,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="350" Grid.RowSpan="2"/>
+            <Label Content="{DynamicResource ErrorProductName}" Visibility="{Binding ErrorProductNameEnVisibility, Converter={StaticResource BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Margin="22,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="350" Grid.RowSpan="2" Grid.Column="1"/>
+            <Label Content="{DynamicResource ErrorMetal}" Visibility="{Binding ErrorMetal, Converter={StaticResource BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Margin="14,49,0,0" Grid.Row="4" VerticalAlignment="Top" Width="350" Grid.RowSpan="2"/>
+            <Label Content="{DynamicResource ErrorStoneInsert}" Visibility="{Binding ErrorStone, Converter={StaticResource ResourceKey=BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Grid.Row="3" VerticalAlignment="Top" Width="350" Grid.Column="1" Margin="22,45,0,0" Grid.RowSpan="2"/>
+            <Label Content="{DynamicResource ErrorProductType}" Visibility="{Binding ErrorProductType, Converter={StaticResource ResourceKey=BTVConverter}}" Foreground="Red" HorizontalAlignment="Left" Height="22" FontSize="10" Grid.Row="6" VerticalAlignment="Top" Width="258" Grid.Column="1" Margin="39,59,0,0"/>
+
+
+        </Grid>
+    </Border>
+</Window>
